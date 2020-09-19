@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
 import Game from './pages/Game';
+import appStore from './store/appStore';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 

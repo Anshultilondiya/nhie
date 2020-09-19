@@ -74,17 +74,12 @@
             }
 
             .Wrapper {
-                background: #ffb75e; /* fallback for old browsers */
-                background: -webkit-linear-gradient(
-                    to right,
-                    #ed8f03,
-                    #ffb75e
-                ); /* Chrome 10-25, Safari 5.1-6 */
-                background: linear-gradient(
-                    to right,
-                    #ed8f03,
-                    #ffb75e
-                ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                background: #ffb75e;
+                /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #ed8f03, #ffb75e);
+                /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #ed8f03, #ffb75e);
+                /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
                 height: 100vh;
                 display: flex;
@@ -92,6 +87,7 @@
                 justify-content: center;
                 text-align: center;
             }
+
             .homeButtons {
                 display: flex;
                 width: 40%;
@@ -117,12 +113,83 @@
             }
 
             .welcome-screen .input-field {
-                margin-left: 35%;
-                width: 30%;
+                margin-bottom: 10px;
             }
+
             .welcome-screen .form-control:focus {
                 border-color: #28a745;
                 box-shadow: 0 0 0 0.2rem #28a74646;
+            }
+
+            .welcome-screen .input-with-error {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                margin: auto;
+            }
+
+            .welcome-screen .error-icon {
+                color: #ed8f03;
+                font-size: 200%;
+                margin-left: 10px;
+            }
+
+            .srv-validation-message {
+                color: rgba(0, 0, 0, 0.479);
+            }
+
+            .input-name {
+                display: flex;
+            }
+
+            .input-name .btn {
+                margin-left: 10px;
+            }
+
+            .gamePage {
+                background: #ffb75e;
+                /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #ed8f03, #ffb75e);
+                /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #ed8f03, #ffb75e);
+                min-height: 100vh;
+                /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            }
+
+            .gamePage nav {
+                padding: 10px 50px;
+                background-color: #f4f4f4;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .gamePage nav .btn {
+                padding: 2px 30px;
+            }
+
+            .player {
+                margin: 20px;
+                display: flex;
+                align-items: center;
+            }
+
+            .player .avatar {
+                height: 50px;
+                flex: 0 1 50px;
+                margin-right: 20px;
+            }
+            .player .player-details {
+                background-color: #f4f4f4;
+                padding: 0 20px;
+                display: flex;
+                border-radius: 10px;
+                flex: 1;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.151),
+                    0 6px 6px rgba(0, 0, 0, 0.123);
+                
             }
         </style>
     </head>

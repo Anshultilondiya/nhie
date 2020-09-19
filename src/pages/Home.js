@@ -4,6 +4,7 @@ import { BiError } from 'react-icons/bi';
 import { Button, FormControl } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SimpleReactValidator from 'simple-react-validator';
 
 export default class Home extends Component {
     state = {
@@ -19,6 +20,8 @@ export default class Home extends Component {
         },
     };
 
+    validator = new SimpleReactValidator();
+
     uniqueGameId = () => {
         let n = Math.floor(100000 + Math.random() * 900000);
         this.setState({
@@ -33,24 +36,24 @@ export default class Home extends Component {
     };
 
     addUserName = (event) => {
-        this.setState({ username: event.target.value });
+        this.setState({
+            username: event.target.value,
+        });
     };
     addGameCode = (event) => {
-        if (event.target.value.length === 6) {
-            this.setState({ gameCode: event.target.value, invalid: false });
-        }
+        this.setState({
+            gameCode: event.target.value,
+        });
     };
 
-    letsPlay = (user = this.state.username, code = this.state.gameCode) => {
-        if (user === '') {
-            this.setState({ error: { username: true } });
-        }
-        if (code === '') {
-            this.setState({ error: { code: true }, showJoin: true });
-        }
+    letsPlay = (name, code) => {
+        
     };
 
     render() {
+        this.validator.purgeFields();
+
+        console.log(this.state.username, this.state.gameCode);
         let genCard = (
             <div
                 style={{
@@ -65,7 +68,7 @@ export default class Home extends Component {
                 >
                     A game is created with game code : {this.state.gameCode}{' '}
                     <br />
-                    You can share with code with your friends
+                    You can share this code with your friends
                 </p>
                 <div
                     style={{
@@ -110,20 +113,32 @@ export default class Home extends Component {
                 >
                     Please Enter the Joining Code:{' '}
                 </p>
-
-                <FormControl
-                    className="input-field"
-                    placeholder="Enter 6 Digit Game Code"
-                    aria-label="gameCode"
-                    onChange={this.addGameCode}
-                />
-                {this.state.error.code ? <BiError /> : null}
+                <div className="input-with-error">
+                    <FormControl
+                        className="input-field"
+                        placeholder="Enter 6 Digit Game Code"
+                        aria-label="gameCode"
+                        onChange={this.addGameCode}
+                        onBlur={() => this.validator.showMessageFor('code')}
+                    />
+                    {this.validator.message('code', this.state.gameCode, [
+                        'required',
+                        'numeric',
+                        'min:100000,num',
+                        'max:999999,num',
+                    ])}
+                </div>
                 <div>
                     <Button
                         style={{ marginTop: '20px' }}
                         className="btn"
                         variant="outline-success"
-                        onClick={this.letsPlay}
+                        onClick={() => {
+                            this.letsPlay(
+                                this.state.username,
+                                this.state.gameCode
+                            );
+                        }}
                     >
                         Let's Play
                     </Button>{' '}
@@ -144,13 +159,24 @@ export default class Home extends Component {
                     </div>
 
                     <div className="content">
-                        <FormControl
-                            className="input-field"
-                            placeholder="Enter Username"
-                            aria-label="username"
-                            onChange={this.addUserName}
-                        />
-                        {this.state.error.username ? <BiError /> : null}
+                        <div className="input-with-error">
+                            <div className="input-name">
+                                <FormControl
+                                    className="input-field"
+                                    placeholder="Enter Username"
+                                    aria-label="username"
+                                    onChange={this.addUserName}
+                                    onBlur={() =>
+                                        this.validator.showMessageFor('name')
+                                    }
+                                />{' '}
+                            </div>
+                            {this.validator.message(
+                                'name',
+                                this.state.username,
+                                'required|alpha_num_dash_space'
+                            )}
+                        </div>
                         <div className="homeButtons">
                             <Button
                                 className="btn"
