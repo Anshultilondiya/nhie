@@ -30,7 +30,7 @@ class Game extends Component {
         received: '',
     };
     store = this.props.appStore;
-    endpoint = '/';
+    endpoint = 'https://nhieserver.herokuapp.com';
     socket = io(this.endpoint);
     componentDidMount() {
         const { name, room } = queryString.parse(window.location.search);
