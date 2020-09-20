@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { FaGlassCheers } from 'react-icons/fa';
-import { BiError } from 'react-icons/bi';
+// import { BiError } from 'react-icons/bi';
 import { Button, FormControl } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SimpleReactValidator from 'simple-react-validator';
+import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
-export default class Home extends Component {
+@inject('appStore')
+@observer
+class Home extends Component {
     state = {
         username: '',
         gameCode: '',
@@ -47,11 +51,32 @@ export default class Home extends Component {
     };
 
     letsPlay = (name, code) => {
-        
+        this.props.appStore.addCred(name, code);
+        console.log(this.props.appStore);
     };
 
     render() {
         this.validator.purgeFields();
+
+        let letsPlayButton = (
+            <Button
+                className="btn"
+                variant="outline-success"
+                onClick={(event) => {
+                    if (!this.state.username || !this.state.gameCode) {
+                        event.preventDefault();
+                    }
+
+                    this.letsPlay(this.state.username, this.state.gameCode);
+                }}
+            >
+                <Link
+                    to={`/game?&name=${this.state.username}&room=${this.state.gameCode}`}
+                >
+                    Let's Play
+                </Link>
+            </Button>
+        );
 
         console.log(this.state.username, this.state.gameCode);
         let genCard = (
@@ -91,9 +116,7 @@ export default class Home extends Component {
                         </Button>
                     </CopyToClipboard>
                 </div>
-                <Button className="btn" variant="outline-success">
-                    Let's Play
-                </Button>{' '}
+                {letsPlayButton}
             </div>
         );
 
@@ -128,21 +151,7 @@ export default class Home extends Component {
                         'max:999999,num',
                     ])}
                 </div>
-                <div>
-                    <Button
-                        style={{ marginTop: '20px' }}
-                        className="btn"
-                        variant="outline-success"
-                        onClick={() => {
-                            this.letsPlay(
-                                this.state.username,
-                                this.state.gameCode
-                            );
-                        }}
-                    >
-                        Let's Play
-                    </Button>{' '}
-                </div>
+                <div>{letsPlayButton}</div>
             </div>
         );
 
@@ -201,3 +210,5 @@ export default class Home extends Component {
         );
     }
 }
+
+export default Home;
