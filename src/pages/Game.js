@@ -30,7 +30,7 @@ class Game extends Component {
         received: '',
     };
     store = this.props.appStore;
-    endpoint = 'http://localhost:4000';
+    endpoint = 'https://blissful-hoover-013892.netlify.app';
     socket = io(this.endpoint);
     componentDidMount() {
         const { name, room } = queryString.parse(window.location.search);
