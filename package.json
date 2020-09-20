@@ -2,7 +2,6 @@
     "name": "nhie",
     "version": "0.1.0",
     "private": true,
-    "homepage": "/",
     "dependencies": {
         "@babel/core": "7.9.0",
         "@fortawesome/fontawesome-free": "^5.14.0",
